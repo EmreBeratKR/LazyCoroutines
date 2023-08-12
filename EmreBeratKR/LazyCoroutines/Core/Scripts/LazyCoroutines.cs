@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,12 +11,21 @@ namespace EmreBeratKR.LazyCoroutines
         private const string RunnerObjectName = "[LazyCoroutineRunner]";
 
 
+        private static readonly Dictionary<uint, Coroutine> Coroutines = new();
+
+
         private static LazyCoroutineRunner ms_Runner;
+        private static uint ms_NextID;
         
         
         public static Coroutine StartCoroutine(IEnumerator routine)
         {
-            return GetRunner().StartCoroutine(routine);
+            var id = GetID();
+            var coroutine = GetRunner().StartCoroutine(routine);
+            
+            Coroutines.Add(id, coroutine);
+            
+            return coroutine;
         }
 
         public static void StopCoroutine(Coroutine coroutine)
@@ -32,18 +42,20 @@ namespace EmreBeratKR.LazyCoroutines
 
         public static Coroutine WaitForFrame(Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
             
             
             IEnumerator Routine()
             {
                 yield return null;
-                action?.Invoke();
+                Invoke(action, GetCoroutineByID(id));
             }
         }
 
         public static Coroutine WaitForFrames(int count, Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
             
             
@@ -54,12 +66,13 @@ namespace EmreBeratKR.LazyCoroutines
                     yield return null;
                 }
                 
-                action?.Invoke();
+                Invoke(action, GetCoroutineByID(id));
             }
         }
         
         public static Coroutine WaitForSeconds(float delay, Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
             
             
@@ -69,12 +82,13 @@ namespace EmreBeratKR.LazyCoroutines
 
                 while (Time.time - startTime < delay) yield return null;
                 
-                action?.Invoke();
+                Invoke(action, GetCoroutineByID(id));
             }
         }
         
         public static Coroutine WaitForSecondsRealtime(float delay, Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
             
             
@@ -84,7 +98,7 @@ namespace EmreBeratKR.LazyCoroutines
 
                 while (Time.unscaledTime - startTime < delay) yield return null;
                 
-                action?.Invoke();
+                Invoke(action, GetCoroutineByID(id));
             }
         }
 
@@ -95,6 +109,7 @@ namespace EmreBeratKR.LazyCoroutines
         
         public static Coroutine DoEverySeconds(Func<float> secondsGetter, Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
             
 
@@ -114,7 +129,7 @@ namespace EmreBeratKR.LazyCoroutines
                     startTime = Time.time;
                     interval = secondsGetter.Invoke();
                     
-                    action?.Invoke();
+                    Invoke(action, GetCoroutineByID(id));
 
                     yield return null;
                 }
@@ -123,6 +138,7 @@ namespace EmreBeratKR.LazyCoroutines
 
         public static Coroutine DoWhile(Func<bool> condition, Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
 
 
@@ -130,7 +146,7 @@ namespace EmreBeratKR.LazyCoroutines
             {
                 while (condition.Invoke())
                 {
-                    action?.Invoke();
+                    Invoke(action, GetCoroutineByID(id));
                     yield return null;
                 }
             }
@@ -138,6 +154,7 @@ namespace EmreBeratKR.LazyCoroutines
         
         public static Coroutine DoUntil(Func<bool> condition, Action action)
         {
+            var id = ms_NextID;
             return StartCoroutine(Routine());
 
 
@@ -145,13 +162,65 @@ namespace EmreBeratKR.LazyCoroutines
             {
                 while (!condition.Invoke())
                 {
-                    action?.Invoke();
+                    Invoke(action, GetCoroutineByID(id));
                     yield return null;
                 }
             }
         }
 
+
+        private static void Kill(Coroutine coroutine)
+        {
+            var id = GetCoroutineID(coroutine);
+            Kill(id);
+        }
+
+        private static void Kill(uint id)
+        {
+            Coroutines.Remove(id, out var coroutine); 
+            StopCoroutine(coroutine);
+        }
         
+        private static uint GetID()
+        {
+            var id = ms_NextID;
+            ms_NextID += 1;
+            return id;
+        }
+
+        private static uint GetCoroutineID(Coroutine coroutine)
+        {
+            foreach (var (id, _coroutine) in Coroutines)
+            {
+                if (_coroutine == coroutine) return id;
+            }
+
+            return uint.MaxValue;
+        }
+
+        private static Coroutine GetCoroutineByID(uint id)
+        {
+            return Coroutines[id];
+        }
+        
+        private static void Invoke(Action action, Coroutine coroutine)
+        {
+            try
+            {
+                action?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Kill(coroutine);
+                LogWarning($"The following error caught inside a routine. The routine is being killed!\n{e}");
+            }
+        }
+
+        private static void LogWarning(string msg)
+        {
+            Debug.LogWarning($"[LazyCoroutineWarning]: {msg}");
+        }
+
         private static LazyCoroutineRunner GetRunner()
         {
             if (ms_Runner) return ms_Runner;
@@ -161,8 +230,8 @@ namespace EmreBeratKR.LazyCoroutines
 
             return ms_Runner;
         }
-        
-        
+
+
         private class LazyCoroutineRunner : MonoBehaviour {}
     }
 }
