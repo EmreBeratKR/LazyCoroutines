@@ -14,7 +14,7 @@ namespace EmreBeratKR.LazyCoroutines
         public static Coroutine DoEverySeconds(Func<float> secondsGetter, Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine());
+            return StartCoroutine(Routine(), $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds)");
             
 
             IEnumerator Routine()
@@ -43,32 +43,40 @@ namespace EmreBeratKR.LazyCoroutines
         public static Coroutine DoWhile(Func<bool> condition, Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine());
+            return StartCoroutine(Routine(), nameof(DoWhile));
 
 
             IEnumerator Routine()
             {
                 while (condition.Invoke())
                 {
-                    Invoke(action, GetCoroutineByID(id));
                     yield return null;
+                    Invoke(action, GetCoroutineByID(id));
                 }
+
+                yield return null;
+                
+                Kill(id);
             }
         }
         
         public static Coroutine DoUntil(Func<bool> condition, Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine());
+            return StartCoroutine(Routine(), nameof(DoUntil));
 
 
             IEnumerator Routine()
             {
                 while (!condition.Invoke())
                 {
-                    Invoke(action, GetCoroutineByID(id));
                     yield return null;
+                    Invoke(action, GetCoroutineByID(id));
                 }
+                
+                yield return null;
+                
+                Kill(id);
             }
         }
     }

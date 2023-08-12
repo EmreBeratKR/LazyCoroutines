@@ -14,16 +14,33 @@ namespace EmreBeratKR.LazyCoroutines
         private static readonly Dictionary<uint, Coroutine> Coroutines = new();
 
 
-        private static LazyCoroutineRunner ms_Runner;
+#if UNITY_EDITOR
+
+        private static readonly Dictionary<uint, Routine> Routines = new();
+
+#endif
+
+
+        private static Runner ms_Runner;
         private static uint ms_NextID;
         
         
-        public static Coroutine StartCoroutine(IEnumerator routine)
+        public static Coroutine StartCoroutine(IEnumerator routine, string name = "UNNAMED ROUTINE")
         {
             var id = GetAndIncrementID();
             var coroutine = GetRunner().StartCoroutine(routine);
             
             Coroutines.Add(id, coroutine);
+
+#if UNITY_EDITOR
+            
+            Routines.Add(id, new Routine
+            {
+                name = name,
+                coroutine = coroutine
+            });
+            
+#endif
             
             return coroutine;
         }
@@ -39,6 +56,12 @@ namespace EmreBeratKR.LazyCoroutines
         {
             GetRunner().StopAllCoroutines();
             Coroutines.Clear();
+
+#if UNITY_EDITOR
+            
+            Routines.Clear();
+            
+#endif
         }
 
 
@@ -51,6 +74,13 @@ namespace EmreBeratKR.LazyCoroutines
         private static void Kill(uint id)
         {
             Coroutines.Remove(id, out var coroutine); 
+            
+#if UNITY_EDITOR
+
+            Routines.Remove(id);
+
+#endif
+            
             GetRunner().StopCoroutine(coroutine);
         }
         
@@ -94,17 +124,28 @@ namespace EmreBeratKR.LazyCoroutines
             Debug.LogWarning($"[LazyCoroutineWarning]: {msg}");
         }
 
-        private static LazyCoroutineRunner GetRunner()
+        private static Runner GetRunner()
         {
             if (ms_Runner) return ms_Runner;
             
-            ms_Runner = new GameObject(RunnerObjectName).AddComponent<LazyCoroutineRunner>();
+            ms_Runner = new GameObject(RunnerObjectName).AddComponent<Runner>();
             Object.DontDestroyOnLoad(ms_Runner);
 
             return ms_Runner;
         }
 
 
-        private class LazyCoroutineRunner : MonoBehaviour {}
+        public class Runner : MonoBehaviour {}
+        
+#if UNITY_EDITOR
+        
+        [Serializable]
+        public class Routine
+        {
+            public string name;
+            public Coroutine coroutine;
+        }
+        
+#endif   
     }
 }
