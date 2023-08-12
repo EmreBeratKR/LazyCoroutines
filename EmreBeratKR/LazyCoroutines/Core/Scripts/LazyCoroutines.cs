@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace EmreBeratKR.LazyCoroutines
 {
-    public static class LazyCoroutines
+    public static partial class LazyCoroutines
     {
         private const string RunnerObjectName = "[LazyCoroutineRunner]";
 
@@ -20,7 +20,7 @@ namespace EmreBeratKR.LazyCoroutines
         
         public static Coroutine StartCoroutine(IEnumerator routine)
         {
-            var id = GetID();
+            var id = GetAndIncrementID();
             var coroutine = GetRunner().StartCoroutine(routine);
             
             Coroutines.Add(id, coroutine);
@@ -32,140 +32,13 @@ namespace EmreBeratKR.LazyCoroutines
         {
             if (coroutine == null) return;
             
-            GetRunner().StopCoroutine(coroutine);
+            Kill(coroutine);
         }
 
         public static void StopAllCoroutines()
         {
             GetRunner().StopAllCoroutines();
-        }
-
-        public static Coroutine WaitForFrame(Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-            
-            
-            IEnumerator Routine()
-            {
-                yield return null;
-                Invoke(action, GetCoroutineByID(id));
-            }
-        }
-
-        public static Coroutine WaitForFrames(int count, Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-            
-            
-            IEnumerator Routine()
-            {
-                for (var i = 0; i < count; i++)
-                {
-                    yield return null;
-                }
-                
-                Invoke(action, GetCoroutineByID(id));
-            }
-        }
-        
-        public static Coroutine WaitForSeconds(float delay, Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-            
-            
-            IEnumerator Routine()
-            {
-                var startTime = Time.time;
-
-                while (Time.time - startTime < delay) yield return null;
-                
-                Invoke(action, GetCoroutineByID(id));
-            }
-        }
-        
-        public static Coroutine WaitForSecondsRealtime(float delay, Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-            
-            
-            IEnumerator Routine()
-            {
-                var startTime = Time.unscaledTime;
-
-                while (Time.unscaledTime - startTime < delay) yield return null;
-                
-                Invoke(action, GetCoroutineByID(id));
-            }
-        }
-
-        public static Coroutine DoEverySeconds(float seconds, Action action)
-        {
-            return DoEverySeconds(() => seconds, action);
-        }
-        
-        public static Coroutine DoEverySeconds(Func<float> secondsGetter, Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-            
-
-            IEnumerator Routine()
-            {
-                var startTime = Time.time;
-                var interval = secondsGetter.Invoke();
-                
-                while (true)
-                {
-                    if (Time.time - startTime < interval)
-                    {
-                        yield return null;
-                        continue;
-                    }
-
-                    startTime = Time.time;
-                    interval = secondsGetter.Invoke();
-                    
-                    Invoke(action, GetCoroutineByID(id));
-
-                    yield return null;
-                }
-            }
-        }
-
-        public static Coroutine DoWhile(Func<bool> condition, Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-
-
-            IEnumerator Routine()
-            {
-                while (condition.Invoke())
-                {
-                    Invoke(action, GetCoroutineByID(id));
-                    yield return null;
-                }
-            }
-        }
-        
-        public static Coroutine DoUntil(Func<bool> condition, Action action)
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine());
-
-
-            IEnumerator Routine()
-            {
-                while (!condition.Invoke())
-                {
-                    Invoke(action, GetCoroutineByID(id));
-                    yield return null;
-                }
-            }
+            Coroutines.Clear();
         }
 
 
@@ -178,10 +51,10 @@ namespace EmreBeratKR.LazyCoroutines
         private static void Kill(uint id)
         {
             Coroutines.Remove(id, out var coroutine); 
-            StopCoroutine(coroutine);
+            GetRunner().StopCoroutine(coroutine);
         }
         
-        private static uint GetID()
+        private static uint GetAndIncrementID()
         {
             var id = ms_NextID;
             ms_NextID += 1;
