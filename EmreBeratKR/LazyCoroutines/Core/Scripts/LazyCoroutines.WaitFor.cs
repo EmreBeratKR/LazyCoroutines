@@ -1,18 +1,16 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
     {
-        public static Coroutine WaitForFrame(Action action)
+        public static Coroutine WaitForFrame(System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), nameof(WaitForFrame));
             
             
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
                 yield return null;
                 Invoke(action, GetCoroutineByID(id));
@@ -20,13 +18,13 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
 
-        public static Coroutine WaitForFrames(int count, Action action)
+        public static Coroutine WaitForFrames(int count, System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), $"{nameof(WaitForFrames)} ({count} frames)");
             
             
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
                 for (var i = 0; i < count; i++)
                 {
@@ -38,13 +36,13 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static Coroutine WaitForSeconds(float delay, Action action)
+        public static Coroutine WaitForSeconds(float delay, System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), $"{nameof(WaitForSeconds)} ({delay} seconds)");
             
             
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
                 var startTime = Time.time;
 
@@ -55,13 +53,13 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static Coroutine WaitForSecondsRealtime(float delay, Action action)
+        public static Coroutine WaitForSecondsRealtime(float delay, System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), $"{nameof(WaitForSecondsRealtime)} ({delay} seconds)");
             
             
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
                 var startTime = Time.unscaledTime;
 

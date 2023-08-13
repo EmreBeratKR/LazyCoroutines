@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Object = UnityEngine.Object;
-
 namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
@@ -11,12 +5,12 @@ namespace EmreBeratKR.LazyCoroutines
         private const string RunnerObjectName = "[LazyCoroutineRunner]";
 
 
-        private static readonly Dictionary<uint, Coroutine> Coroutines = new();
+        private static readonly System.Collections.Generic.Dictionary<uint, UnityEngine.Coroutine> Coroutines = new();
 
 
 #if UNITY_EDITOR
 
-        private static readonly Dictionary<uint, Routine> Routines = new();
+        private static readonly System.Collections.Generic.Dictionary<uint, Routine> Routines = new();
 
 #endif
 
@@ -25,7 +19,7 @@ namespace EmreBeratKR.LazyCoroutines
         private static uint ms_NextID;
         
         
-        public static Coroutine StartCoroutine(IEnumerator routine, string name = "UNNAMED ROUTINE")
+        public static UnityEngine.Coroutine StartCoroutine(System.Collections.IEnumerator routine, string name = "UNNAMED ROUTINE")
         {
             var id = GetAndIncrementID();
             var coroutine = GetRunner().StartCoroutine(routine);
@@ -45,7 +39,7 @@ namespace EmreBeratKR.LazyCoroutines
             return coroutine;
         }
 
-        public static void StopCoroutine(Coroutine coroutine)
+        public static void StopCoroutine(UnityEngine.Coroutine coroutine)
         {
             if (coroutine == null) return;
             
@@ -65,7 +59,7 @@ namespace EmreBeratKR.LazyCoroutines
         }
 
 
-        private static void Kill(Coroutine coroutine)
+        private static void Kill(UnityEngine.Coroutine coroutine)
         {
             var id = GetCoroutineID(coroutine);
             Kill(id);
@@ -91,7 +85,7 @@ namespace EmreBeratKR.LazyCoroutines
             return id;
         }
 
-        private static uint GetCoroutineID(Coroutine coroutine)
+        private static uint GetCoroutineID(UnityEngine.Coroutine coroutine)
         {
             foreach (var (id, _coroutine) in Coroutines)
             {
@@ -101,18 +95,18 @@ namespace EmreBeratKR.LazyCoroutines
             return uint.MaxValue;
         }
 
-        private static Coroutine GetCoroutineByID(uint id)
+        private static UnityEngine.Coroutine GetCoroutineByID(uint id)
         {
             return Coroutines[id];
         }
         
-        private static void Invoke(Action action, Coroutine coroutine)
+        private static void Invoke(System.Action action, UnityEngine.Coroutine coroutine)
         {
             try
             {
                 action?.Invoke();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Kill(coroutine);
                 LogWarning($"The following error caught inside a routine. The routine is being killed!\n{e}");
@@ -121,29 +115,29 @@ namespace EmreBeratKR.LazyCoroutines
 
         private static void LogWarning(string msg)
         {
-            Debug.LogWarning($"[LazyCoroutineWarning]: {msg}");
+            UnityEngine.Debug.LogWarning($"[LazyCoroutineWarning]: {msg}");
         }
 
         private static Runner GetRunner()
         {
             if (ms_Runner) return ms_Runner;
             
-            ms_Runner = new GameObject(RunnerObjectName).AddComponent<Runner>();
-            Object.DontDestroyOnLoad(ms_Runner);
+            ms_Runner = new UnityEngine.GameObject(RunnerObjectName).AddComponent<Runner>();
+            UnityEngine.Object.DontDestroyOnLoad(ms_Runner);
 
             return ms_Runner;
         }
 
 
-        public class Runner : MonoBehaviour {}
+        public class Runner : UnityEngine.MonoBehaviour {}
         
 #if UNITY_EDITOR
         
-        [Serializable]
+        [System.Serializable]
         public class Routine
         {
             public string name;
-            public Coroutine coroutine;
+            public UnityEngine.Coroutine coroutine;
         }
         
 #endif   

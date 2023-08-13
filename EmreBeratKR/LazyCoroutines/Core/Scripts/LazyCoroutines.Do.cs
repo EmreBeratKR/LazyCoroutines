@@ -1,36 +1,32 @@
-using System;
-using System.Collections;
-using UnityEngine;
-
 namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
     {
-        public static Coroutine DoEverySeconds(float seconds, Action action)
+        public static UnityEngine.Coroutine DoEverySeconds(float seconds, System.Action action)
         {
             return DoEverySeconds(() => seconds, action);
         }
         
-        public static Coroutine DoEverySeconds(Func<float> secondsGetter, Action action)
+        public static UnityEngine.Coroutine DoEverySeconds(System.Func<float> secondsGetter, System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds)");
             
 
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
-                var startTime = Time.time;
+                var startTime = UnityEngine.Time.time;
                 var interval = secondsGetter.Invoke();
                 
                 while (true)
                 {
-                    if (Time.time - startTime < interval)
+                    if (UnityEngine.Time.time - startTime < interval)
                     {
                         yield return null;
                         continue;
                     }
 
-                    startTime = Time.time;
+                    startTime = UnityEngine.Time.time;
                     interval = secondsGetter.Invoke();
                     
                     Invoke(action, GetCoroutineByID(id));
@@ -40,13 +36,13 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
 
-        public static Coroutine DoWhile(Func<bool> condition, Action action)
+        public static UnityEngine.Coroutine DoWhile(System.Func<bool> condition, System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), nameof(DoWhile));
 
 
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
                 while (condition.Invoke())
                 {
@@ -60,13 +56,13 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static Coroutine DoUntil(Func<bool> condition, Action action)
+        public static UnityEngine.Coroutine DoUntil(System.Func<bool> condition, System.Action action)
         {
             var id = ms_NextID;
             return StartCoroutine(Routine(), nameof(DoUntil));
 
 
-            IEnumerator Routine()
+            System.Collections.IEnumerator Routine()
             {
                 while (!condition.Invoke())
                 {
