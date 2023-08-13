@@ -5,6 +5,10 @@ namespace EmreBeratKR.LazyCoroutines.Editor
     [UnityEditor.CustomEditor(typeof(LazyCoroutines.Runner))]
     public class LazyCoroutineRunnerEditor : UnityEditor.Editor
     {
+        private static readonly UnityEngine.GUIStyle SearchBarStyle = new("ToolbarSeachTextField");
+
+
+        private string m_SearchBarText = "";
         private bool m_TaggedFoldout;
         private bool m_UntaggedFoldout;
         
@@ -12,42 +16,21 @@ namespace EmreBeratKR.LazyCoroutines.Editor
         public override void OnInspectorGUI()
         {
             var routines = GetRoutines();
-            var taggedRoutines = routines.Where(routine => routine.Value.IsTagged);
-            var untaggedRoutines = routines.Where(routine => !routine.Value.IsTagged);
+            var taggedRoutines = routines
+                .Where(routine => routine.Value.IsTagged)
+                .ToArray();
+            var untaggedRoutines = routines
+                .Where(routine => !routine.Value.IsTagged)
+                .ToArray();
 
-            UnityEditor.EditorGUILayout.LabelField($"Running Routines Count : {routines.Count}");
+            OnRunningRoutineCountGUI(routines.Count);
             UnityEditor.EditorGUILayout.Space();
-
-            m_TaggedFoldout = UnityEditor.EditorGUILayout.Foldout(m_TaggedFoldout, "Tagged Routines");
-
-            if (m_TaggedFoldout)
-            {
-                UnityEditor.EditorGUI.indentLevel += 1;
-                
-                foreach (var (id, routine) in taggedRoutines)
-                {
-                    var label = $"[{routine.tag}][{id}] : {routine.name}";
-                    UnityEditor.EditorGUILayout.LabelField(label);
-                }
-                
-                UnityEditor.EditorGUI.indentLevel -= 1;
-            }
+            OnSearchbarGUI();
+            UnityEditor.EditorGUILayout.Space();
+            OnTaggedRoutineFoldoutGUI(taggedRoutines);
+            UnityEditor.EditorGUILayout.Space();
+            OnUntaggedRoutineFoldoutGUI(untaggedRoutines);
             
-            UnityEditor.EditorGUILayout.Space();
-            m_UntaggedFoldout = UnityEditor.EditorGUILayout.Foldout(m_UntaggedFoldout, "Untagged Routines");
-
-            if (m_UntaggedFoldout)
-            {
-                UnityEditor.EditorGUI.indentLevel += 1;
-                
-                foreach (var (id, routine) in untaggedRoutines)
-                {
-                    var label = $"[{id}] : {routine.name}";
-                    UnityEditor.EditorGUILayout.LabelField(label);
-                }
-                
-                UnityEditor.EditorGUI.indentLevel -= 1;
-            }
         }
         
         public override bool RequiresConstantRepaint()
@@ -56,6 +39,77 @@ namespace EmreBeratKR.LazyCoroutines.Editor
         }
 
 
+        private void OnSearchbarGUI()
+        {
+            m_SearchBarText = UnityEditor.EditorGUILayout.TextField(m_SearchBarText, SearchBarStyle);
+        }
+        
+        private void OnRunningRoutineCountGUI(int count)
+        {
+            UnityEditor.EditorGUILayout.LabelField($"Running Routines Count : {count}");
+        }
+
+        private void OnTaggedRoutineFoldoutGUI(System.Collections.Generic.KeyValuePair<uint, LazyCoroutines.Routine>[] routines)
+        {
+            m_TaggedFoldout = UnityEditor.EditorGUILayout.Foldout(m_TaggedFoldout, $"Tagged Routines ({routines.Length})");
+
+            if (m_TaggedFoldout)
+            {
+                var isEmpty = true;
+                UnityEditor.EditorGUI.indentLevel += 1;
+                
+                foreach (var (id, routine) in routines)
+                {
+                    var label = $"[{routine.tag}][{id}] : {routine.name}";
+                    
+                    if (!label.Contains(m_SearchBarText)) continue;
+                    
+                    UnityEditor.EditorGUILayout.LabelField(label);
+                    isEmpty = false;
+                }
+
+                if (isEmpty)
+                {
+                    UnityEditor.EditorGUILayout.LabelField(IsSearching() ? "No Match" : "Empty");
+                }
+                
+                UnityEditor.EditorGUI.indentLevel -= 1;
+            }
+        }
+
+        private void OnUntaggedRoutineFoldoutGUI(System.Collections.Generic.KeyValuePair<uint, LazyCoroutines.Routine>[] routines)
+        {
+            m_UntaggedFoldout = UnityEditor.EditorGUILayout.Foldout(m_UntaggedFoldout, $"Untagged Routines ({routines.Length})");
+
+            if (m_UntaggedFoldout)
+            {
+                var isEmpty = true;
+                UnityEditor.EditorGUI.indentLevel += 1;
+                
+                foreach (var (id, routine) in routines)
+                {
+                    var label = $"[{id}] : {routine.name}";
+                    
+                    if (!label.Contains(m_SearchBarText)) continue;
+                    
+                    UnityEditor.EditorGUILayout.LabelField(label);
+                    isEmpty = false;
+                }
+
+                if (isEmpty)
+                {
+                    UnityEditor.EditorGUILayout.LabelField(IsSearching() ? "No Match" : "Empty");
+                }
+                
+                UnityEditor.EditorGUI.indentLevel -= 1;
+            }
+        }
+
+        private bool IsSearching()
+        {
+            return !string.IsNullOrEmpty(m_SearchBarText);
+        }
+        
         private System.Collections.Generic.Dictionary<uint, LazyCoroutines.Routine> GetRoutines()
         {
             return (System.Collections.Generic.Dictionary<uint, LazyCoroutines.Routine>) 
