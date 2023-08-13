@@ -15,6 +15,20 @@ namespace EmreBeratKR.LazyCoroutines
                 Kill(id);
             }
         }
+        
+        public static UnityEngine.Coroutine WaitForEndOfFrame(System.Action action)
+        {
+            var id = ms_NextID;
+            return StartCoroutine(Routine(), nameof(WaitForEndOfFrame));
+            
+            
+            System.Collections.IEnumerator Routine()
+            {
+                yield return WaitForEndOfFrameObj;
+                Invoke(action, GetCoroutineByID(id));
+                Kill(id);
+            }
+        }
 
         public static UnityEngine.Coroutine WaitForFrames(int count, System.Action action)
         {
@@ -29,6 +43,41 @@ namespace EmreBeratKR.LazyCoroutines
                     yield return null;
 #if UNITY_EDITOR
                     RenameRoutine(id, $"{nameof(WaitForFrames)} ({count - i - 1}/{count} frames)");
+#endif
+                }
+                
+                Invoke(action, GetCoroutineByID(id));
+                Kill(id);
+            }
+        }
+        
+        public static UnityEngine.Coroutine WaitForFixedUpdate(System.Action action)
+        {
+            var id = ms_NextID;
+            return StartCoroutine(Routine(), nameof(WaitForFixedUpdate));
+            
+            
+            System.Collections.IEnumerator Routine()
+            {
+                yield return WaitForFixedUpdateObj;
+                Invoke(action, GetCoroutineByID(id));
+                Kill(id);
+            }
+        }
+        
+        public static UnityEngine.Coroutine WaitForFixedUpdates(int count, System.Action action)
+        {
+            var id = ms_NextID;
+            return StartCoroutine(Routine(), $"{nameof(WaitForFixedUpdates)} ({count}/{count} fixed updates)");
+            
+            
+            System.Collections.IEnumerator Routine()
+            {
+                for (var i = 0; i < count; i++)
+                {
+                    yield return WaitForFixedUpdateObj;
+#if UNITY_EDITOR
+                    RenameRoutine(id, $"{nameof(WaitForFixedUpdates)} ({count - i - 1}/{count} fixed updates)");
 #endif
                 }
                 

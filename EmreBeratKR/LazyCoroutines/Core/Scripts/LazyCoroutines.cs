@@ -5,6 +5,8 @@ namespace EmreBeratKR.LazyCoroutines
         private const string RunnerObjectName = "[LazyCoroutineRunner]";
 
 
+        private static readonly UnityEngine.WaitForFixedUpdate WaitForFixedUpdateObj = new();
+        private static readonly UnityEngine.WaitForEndOfFrame WaitForEndOfFrameObj = new();
         private static readonly System.Collections.Generic.Dictionary<uint, UnityEngine.Coroutine> Coroutines = new();
 
 

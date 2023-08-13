@@ -38,9 +38,15 @@ namespace EmreBeratKR.LazyCoroutines.Test
             LazyCoroutines.WaitUntil(() => i > 4000, () => { });
             LazyCoroutines.WaitWhile(() => i < 3500, () => { });
             LazyCoroutines.WaitForFrame(() => { });
+            LazyCoroutines.WaitForEndOfFrame(() => { });
+            LazyCoroutines.WaitForFixedUpdate(() => { });
             LazyCoroutines.WaitForFrames(5000, () => { });
+            LazyCoroutines.WaitForFixedUpdates(500, () => { });
             LazyCoroutines.WaitForSeconds(10, () => { });
             LazyCoroutines.WaitForSecondsRealtime(15, () => { });
+
+            LazyCoroutines.DoEveryFrame(() => Debug.Log("update"));
+            LazyCoroutines.DoEveryFixedUpdate(() => Debug.Log("fixed update"));
         }
     }
 }

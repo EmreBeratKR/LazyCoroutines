@@ -2,6 +2,38 @@ namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
     {
+        public static UnityEngine.Coroutine DoEveryFrame(System.Action action)
+        {
+            var id = ms_NextID;
+            return StartCoroutine(Routine(), nameof(DoEveryFrame));
+
+
+            System.Collections.IEnumerator Routine()
+            {
+                while (true)
+                {
+                    yield return null;
+                    Invoke(action, GetCoroutineByID(id));
+                }
+            }
+        }
+        
+        public static UnityEngine.Coroutine DoEveryFixedUpdate(System.Action action)
+        {
+            var id = ms_NextID;
+            return StartCoroutine(Routine(), nameof(DoEveryFixedUpdate));
+
+
+            System.Collections.IEnumerator Routine()
+            {
+                while (true)
+                {
+                    yield return WaitForFixedUpdateObj;
+                    Invoke(action, GetCoroutineByID(id));
+                }
+            }
+        }
+        
         public static UnityEngine.Coroutine DoEverySeconds(float seconds, System.Action action)
         {
             return DoEverySeconds(() => seconds, action);
