@@ -19,7 +19,7 @@ namespace EmreBeratKR.LazyCoroutines
         public static UnityEngine.Coroutine WaitForFrames(int count, System.Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForFrames)} ({count} frames)");
+            return StartCoroutine(Routine(), $"{nameof(WaitForFrames)} ({count}/{count} frames)");
             
             
             System.Collections.IEnumerator Routine()
@@ -27,6 +27,9 @@ namespace EmreBeratKR.LazyCoroutines
                 for (var i = 0; i < count; i++)
                 {
                     yield return null;
+#if UNITY_EDITOR
+                    RenameRoutine(id, $"{nameof(WaitForFrames)} ({count - i - 1}/{count} frames)");
+#endif
                 }
                 
                 Invoke(action, GetCoroutineByID(id));
@@ -37,14 +40,22 @@ namespace EmreBeratKR.LazyCoroutines
         public static UnityEngine.Coroutine WaitForSeconds(float delay, System.Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForSeconds)} ({delay} seconds)");
+            return StartCoroutine(Routine(), $"{nameof(WaitForSeconds)} ({delay}/{delay} seconds)");
             
             
             System.Collections.IEnumerator Routine()
             {
                 var startTime = UnityEngine.Time.time;
 
-                while (UnityEngine.Time.time - startTime < delay) yield return null;
+                while (UnityEngine.Time.time - startTime < delay)
+                {
+                    yield return null;
+#if UNITY_EDITOR
+                    var elapsedTime = UnityEngine.Time.time - startTime;
+                    var timeLeft = delay - elapsedTime;
+                    RenameRoutine(id, $"{nameof(WaitForSeconds)} ({timeLeft:0.00}/{delay} seconds)");
+#endif
+                }
                 
                 Invoke(action, GetCoroutineByID(id));
                 Kill(id);
@@ -54,14 +65,22 @@ namespace EmreBeratKR.LazyCoroutines
         public static UnityEngine.Coroutine WaitForSecondsRealtime(float delay, System.Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForSecondsRealtime)} ({delay} seconds)");
+            return StartCoroutine(Routine(), $"{nameof(WaitForSecondsRealtime)} ({delay}/{delay} seconds)");
             
             
             System.Collections.IEnumerator Routine()
             {
                 var startTime = UnityEngine.Time.unscaledTime;
 
-                while (UnityEngine.Time.unscaledTime - startTime < delay) yield return null;
+                while (UnityEngine.Time.unscaledTime - startTime < delay)
+                {
+                    yield return null;
+#if UNITY_EDITOR
+                    var elapsedTime = UnityEngine.Time.unscaledTime - startTime;
+                    var timeLeft = delay - elapsedTime;
+                    RenameRoutine(id, $"{nameof(WaitForSecondsRealtime)} ({timeLeft:0.00}/{delay} seconds)");
+#endif
+                }
                 
                 Invoke(action, GetCoroutineByID(id));
                 Kill(id);

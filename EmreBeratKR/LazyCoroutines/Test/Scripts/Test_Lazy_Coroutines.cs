@@ -7,12 +7,12 @@ namespace EmreBeratKR.LazyCoroutines.Test
     {
         private void Start()
         {
-            /*var go = new GameObject();
+            var go = new GameObject();
 
             LazyCoroutines.DoEverySeconds(1f, () =>
             {
                 Debug.Log(go.name);
-            });*/
+            });
 
             /*GameObject a = null;
 
@@ -39,8 +39,8 @@ namespace EmreBeratKR.LazyCoroutines.Test
             LazyCoroutines.WaitWhile(() => i < 3500, () => { });
             LazyCoroutines.WaitForFrame(() => { });
             LazyCoroutines.WaitForFrames(5000, () => { });
-            LazyCoroutines.WaitForSeconds(1, () => { });
-            LazyCoroutines.WaitForSecondsRealtime(1, () => { });
+            LazyCoroutines.WaitForSeconds(10, () => { });
+            LazyCoroutines.WaitForSecondsRealtime(15, () => { });
         }
     }
 }

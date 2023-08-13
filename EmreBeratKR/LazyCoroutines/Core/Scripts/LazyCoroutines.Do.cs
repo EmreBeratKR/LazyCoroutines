@@ -10,13 +10,16 @@ namespace EmreBeratKR.LazyCoroutines
         public static UnityEngine.Coroutine DoEverySeconds(System.Func<float> secondsGetter, System.Action action)
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds)");
+            return StartCoroutine(Routine(), $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds) (0 iterations)");
             
 
             System.Collections.IEnumerator Routine()
             {
                 var startTime = UnityEngine.Time.time;
                 var interval = secondsGetter.Invoke();
+#if UNITY_EDITOR
+                var iteration = 0;
+#endif
                 
                 while (true)
                 {
@@ -30,6 +33,10 @@ namespace EmreBeratKR.LazyCoroutines
                     interval = secondsGetter.Invoke();
                     
                     Invoke(action, GetCoroutineByID(id));
+#if UNITY_EDITOR
+                    iteration += 1;
+                    RenameRoutine(id, $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds) ({iteration} iterations)");
+#endif
 
                     yield return null;
                 }

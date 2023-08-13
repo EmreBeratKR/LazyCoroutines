@@ -139,6 +139,13 @@ namespace EmreBeratKR.LazyCoroutines
             public string name;
             public UnityEngine.Coroutine coroutine;
         }
+
+
+        private static void RenameRoutine(uint id, string name)
+        {
+            var routine = Routines[id];
+            routine.name = name;
+        }
         
 #endif   
     }
