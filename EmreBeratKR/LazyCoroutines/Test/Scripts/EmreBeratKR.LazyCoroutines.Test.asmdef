@@ -1,0 +1,18 @@
+{
+    "name": "EmreBeratKR.LazyCoroutines.Test",
+    "rootNamespace": "EmreBeratKR.LazyCoroutines.Test",
+    "references": [
+        "GUID:069b0f64d07a63540a4645bd4f76919f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
