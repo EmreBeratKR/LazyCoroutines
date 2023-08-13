@@ -15,6 +15,11 @@ namespace EmreBeratKR.LazyCoroutines.Editor
                 UnityEditor.EditorGUILayout.LabelField($"[{id}] : {routine.name}");
             }
         }
+        
+        public override bool RequiresConstantRepaint()
+        {
+            return true;
+        }
 
 
         private System.Collections.Generic.Dictionary<uint, LazyCoroutines.Routine> GetRoutines()
