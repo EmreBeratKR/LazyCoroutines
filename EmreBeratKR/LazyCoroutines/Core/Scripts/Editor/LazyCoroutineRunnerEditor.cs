@@ -62,8 +62,8 @@ namespace EmreBeratKR.LazyCoroutines.Editor
                 {
                     var label = $"[{routine.tag}][{id}] : {routine.name}";
                     
-                    if (!label.Contains(m_SearchBarText)) continue;
-                    
+                    if (!IsMatchWithSearch(label)) continue;
+
                     UnityEditor.EditorGUILayout.LabelField(label);
                     isEmpty = false;
                 }
@@ -90,7 +90,7 @@ namespace EmreBeratKR.LazyCoroutines.Editor
                 {
                     var label = $"[{id}] : {routine.name}";
                     
-                    if (!label.Contains(m_SearchBarText)) continue;
+                    if (!IsMatchWithSearch(label)) continue;
                     
                     UnityEditor.EditorGUILayout.LabelField(label);
                     isEmpty = false;
@@ -105,6 +105,11 @@ namespace EmreBeratKR.LazyCoroutines.Editor
             }
         }
 
+        private bool IsMatchWithSearch(string text)
+        {
+            return text.ToLower().Contains(m_SearchBarText.ToLower());
+        }
+        
         private bool IsSearching()
         {
             return !string.IsNullOrEmpty(m_SearchBarText);
