@@ -149,6 +149,21 @@ namespace EmreBeratKR.LazyCoroutines
             routine.name = name;
         }
         
+        [UnityEditor.MenuItem("EmreBeratKR/Lazy Coroutines/Debugger")]
+        private static void SelectRunner()
+        {
+            if (!UnityEngine.Application.isPlaying)
+            {
+                LogWarning("You must enter play mode to access to debugger!");
+                return;
+            }
+
+            var runner = GetRunner();
+            
+            UnityEditor.Selection.objects = new UnityEngine.Object[] {runner};
+            UnityEditor.EditorGUIUtility.PingObject(runner);
+        }
+        
 #endif   
     }
 }
