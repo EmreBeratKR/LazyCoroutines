@@ -35,10 +35,12 @@ namespace EmreBeratKR.LazyCoroutines.Test
 
             LazyCoroutines.DoUntil(() => i > 5000, () => { i++;});
             LazyCoroutines.DoWhile(() => i < 3000, () => {});
+            LazyCoroutines.WaitUntil(() => i > 4000, () => { });
+            LazyCoroutines.WaitWhile(() => i < 3500, () => { });
             LazyCoroutines.WaitForFrame(() => { });
             LazyCoroutines.WaitForFrames(5000, () => { });
-            LazyCoroutines.WaitForSeconds(10, () => { });
-            LazyCoroutines.WaitForSecondsRealtime(15, () => { });
+            LazyCoroutines.WaitForSeconds(1, () => { });
+            LazyCoroutines.WaitForSecondsRealtime(1, () => { });
         }
     }
 }
