@@ -2,10 +2,10 @@ namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
     {
-        public static UnityEngine.Coroutine DoEveryFrame(System.Action action)
+        public static UnityEngine.Coroutine DoEveryFrame(System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(DoEveryFrame));
+            return StartCoroutine(Routine(), tag, nameof(DoEveryFrame));
 
 
             System.Collections.IEnumerator Routine()
@@ -18,10 +18,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine DoEveryFixedUpdate(System.Action action)
+        public static UnityEngine.Coroutine DoEveryFixedUpdate(System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(DoEveryFixedUpdate));
+            return StartCoroutine(Routine(), tag, nameof(DoEveryFixedUpdate));
 
 
             System.Collections.IEnumerator Routine()
@@ -34,15 +34,15 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine DoEverySeconds(float seconds, System.Action action)
+        public static UnityEngine.Coroutine DoEverySeconds(float seconds, System.Action action, string tag = "")
         {
-            return DoEverySeconds(() => seconds, action);
+            return DoEverySeconds(() => seconds, action, tag);
         }
         
-        public static UnityEngine.Coroutine DoEverySeconds(System.Func<float> secondsGetter, System.Action action)
+        public static UnityEngine.Coroutine DoEverySeconds(System.Func<float> secondsGetter, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds) (0 iterations)");
+            return StartCoroutine(Routine(), tag, $"{nameof(DoEverySeconds)} ({secondsGetter.Invoke()} seconds) (0 iterations)");
             
 
             System.Collections.IEnumerator Routine()
@@ -75,10 +75,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
 
-        public static UnityEngine.Coroutine DoWhile(System.Func<bool> condition, System.Action action)
+        public static UnityEngine.Coroutine DoWhile(System.Func<bool> condition, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(DoWhile));
+            return StartCoroutine(Routine(), tag, nameof(DoWhile));
 
 
             System.Collections.IEnumerator Routine()
@@ -95,10 +95,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine DoUntil(System.Func<bool> condition, System.Action action)
+        public static UnityEngine.Coroutine DoUntil(System.Func<bool> condition, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(DoUntil));
+            return StartCoroutine(Routine(), tag, nameof(DoUntil));
 
 
             System.Collections.IEnumerator Routine()

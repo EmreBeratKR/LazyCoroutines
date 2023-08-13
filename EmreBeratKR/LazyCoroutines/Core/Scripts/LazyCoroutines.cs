@@ -21,7 +21,7 @@ namespace EmreBeratKR.LazyCoroutines
         private static uint ms_NextID;
         
         
-        public static UnityEngine.Coroutine StartCoroutine(System.Collections.IEnumerator routine, string name = "UNNAMED ROUTINE")
+        public static UnityEngine.Coroutine StartCoroutine(System.Collections.IEnumerator routine, string tag = "", string name = "UNNAMED ROUTINE")
         {
             var id = GetAndIncrementID();
             var coroutine = GetRunner().StartCoroutine(routine);
@@ -33,7 +33,8 @@ namespace EmreBeratKR.LazyCoroutines
             Routines.Add(id, new Routine
             {
                 name = name,
-                coroutine = coroutine
+                coroutine = coroutine,
+                tag = tag
             });
             
 #endif
@@ -139,7 +140,11 @@ namespace EmreBeratKR.LazyCoroutines
         public class Routine
         {
             public string name;
+            public string tag;
             public UnityEngine.Coroutine coroutine;
+
+
+            public bool IsTagged => !string.IsNullOrEmpty(tag);
         }
 
 

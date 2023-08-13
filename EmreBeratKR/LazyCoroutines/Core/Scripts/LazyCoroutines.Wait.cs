@@ -2,10 +2,10 @@ namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
     {
-        public static UnityEngine.Coroutine WaitForFrame(System.Action action)
+        public static UnityEngine.Coroutine WaitForFrame(System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(WaitForFrame));
+            return StartCoroutine(Routine(), tag, nameof(WaitForFrame));
             
             
             System.Collections.IEnumerator Routine()
@@ -16,10 +16,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitForEndOfFrame(System.Action action)
+        public static UnityEngine.Coroutine WaitForEndOfFrame(System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(WaitForEndOfFrame));
+            return StartCoroutine(Routine(), tag, nameof(WaitForEndOfFrame));
             
             
             System.Collections.IEnumerator Routine()
@@ -30,10 +30,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
 
-        public static UnityEngine.Coroutine WaitForFrames(int count, System.Action action)
+        public static UnityEngine.Coroutine WaitForFrames(int count, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForFrames)} ({count}/{count} frames)");
+            return StartCoroutine(Routine(), tag, $"{nameof(WaitForFrames)} ({count}/{count} frames)");
             
             
             System.Collections.IEnumerator Routine()
@@ -51,10 +51,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitForFixedUpdate(System.Action action)
+        public static UnityEngine.Coroutine WaitForFixedUpdate(System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(WaitForFixedUpdate));
+            return StartCoroutine(Routine(), tag, nameof(WaitForFixedUpdate));
             
             
             System.Collections.IEnumerator Routine()
@@ -65,10 +65,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitForFixedUpdates(int count, System.Action action)
+        public static UnityEngine.Coroutine WaitForFixedUpdates(int count, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForFixedUpdates)} ({count}/{count} fixed updates)");
+            return StartCoroutine(Routine(), tag, $"{nameof(WaitForFixedUpdates)} ({count}/{count} fixed updates)");
             
             
             System.Collections.IEnumerator Routine()
@@ -86,10 +86,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitForSeconds(float delay, System.Action action)
+        public static UnityEngine.Coroutine WaitForSeconds(float delay, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForSeconds)} ({delay}/{delay} seconds)");
+            return StartCoroutine(Routine(), tag, $"{nameof(WaitForSeconds)} ({delay}/{delay} seconds)");
             
             
             System.Collections.IEnumerator Routine()
@@ -111,10 +111,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitForSecondsRealtime(float delay, System.Action action)
+        public static UnityEngine.Coroutine WaitForSecondsRealtime(float delay, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), $"{nameof(WaitForSecondsRealtime)} ({delay}/{delay} seconds)");
+            return StartCoroutine(Routine(), tag, $"{nameof(WaitForSecondsRealtime)} ({delay}/{delay} seconds)");
             
             
             System.Collections.IEnumerator Routine()
@@ -136,10 +136,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitWhile(System.Func<bool> condition, System.Action action)
+        public static UnityEngine.Coroutine WaitWhile(System.Func<bool> condition, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(WaitWhile));
+            return StartCoroutine(Routine(), tag, nameof(WaitWhile));
             
             
             System.Collections.IEnumerator Routine()
@@ -151,10 +151,10 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
-        public static UnityEngine.Coroutine WaitUntil(System.Func<bool> condition, System.Action action)
+        public static UnityEngine.Coroutine WaitUntil(System.Func<bool> condition, System.Action action, string tag = "")
         {
             var id = ms_NextID;
-            return StartCoroutine(Routine(), nameof(WaitUntil));
+            return StartCoroutine(Routine(), tag, nameof(WaitUntil));
             
             
             System.Collections.IEnumerator Routine()
