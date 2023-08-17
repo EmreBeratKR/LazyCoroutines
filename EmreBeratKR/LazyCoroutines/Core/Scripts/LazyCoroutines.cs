@@ -154,7 +154,7 @@ namespace EmreBeratKR.LazyCoroutines
             routine.name = name;
         }
         
-        [UnityEditor.MenuItem("EmreBeratKR/Lazy Coroutines/Debugger")]
+        [UnityEditor.MenuItem("Tools/EmreBeratKR/Lazy Coroutines/Debugger")]
         private static void SelectRunner()
         {
             if (!UnityEngine.Application.isPlaying)
