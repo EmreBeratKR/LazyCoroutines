@@ -1,4 +1,4 @@
-# LazyCotoutines
+# LazyCoroutines
 
 ## Links
 
