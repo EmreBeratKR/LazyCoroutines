@@ -53,6 +53,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// Stops the specified coroutine.
         /// </summary>
         /// <param name="coroutine">The reference to the coroutine to stop.</param>
+        /// <seealso cref="StopAllCoroutines"/>
         public static void StopCoroutine(UnityEngine.Coroutine coroutine)
         {
             if (coroutine == null) return;
@@ -63,6 +64,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <summary>
         /// Stops all running coroutines.
         /// </summary>
+        /// <seealso cref="StopCoroutine"/>
         public static void StopAllCoroutines()
         {
             GetRunner().StopAllCoroutines();

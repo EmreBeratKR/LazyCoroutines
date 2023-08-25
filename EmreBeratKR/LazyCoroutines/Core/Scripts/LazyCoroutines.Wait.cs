@@ -7,7 +7,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// </summary>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForFrames"/>
         /// <seealso cref="WaitForFixedUpdate"/>
         /// <seealso cref="WaitForFixedUpdates"/>
@@ -33,7 +33,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <param name="count">The number of frames to wait for.</param>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForFrame"/>
         /// <seealso cref="WaitForFixedUpdate"/>
         /// <seealso cref="WaitForFixedUpdates"/>
@@ -65,7 +65,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// </summary>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForFrame"/>
         /// <seealso cref="WaitForFrames"/>
         /// <seealso cref="WaitForFixedUpdates"/>
@@ -85,12 +85,12 @@ namespace EmreBeratKR.LazyCoroutines
         }
         
         /// <summary>
-        /// Waits for a specified number of fixed updates and then invokes the provided action.
+        /// Waits for a specified number of FixedUpdates and then invokes the provided action.
         /// </summary>
-        /// <param name="count">The number of fixed updates to wait for.</param>
+        /// <param name="count">The number of FixedUpdates to wait for.</param>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForFrame"/>
         /// <seealso cref="WaitForFrames"/>
         /// <seealso cref="WaitForFixedUpdate"/>
@@ -121,7 +121,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// </summary>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForFrame"/>
         /// <seealso cref="WaitForFrames"/>
         /// <seealso cref="WaitForFixedUpdate"/>
@@ -147,7 +147,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <param name="delay">The time in seconds to wait for.</param>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForSecondsRealtime"/>
         public static UnityEngine.Coroutine WaitForSeconds(float delay, System.Action action, string tag = "")
         {
@@ -180,7 +180,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <param name="delay">The real time in seconds to wait for.</param>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitForSeconds"/>
         public static UnityEngine.Coroutine WaitForSecondsRealtime(float delay, System.Action action, string tag = "")
         {
@@ -213,7 +213,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <param name="condition">The condition to wait for.</param>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="WaitUntil"/>
         public static UnityEngine.Coroutine WaitWhile(System.Func<bool> condition, System.Action action, string tag = "")
         {
@@ -238,7 +238,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <param name="condition">The condition to wait for.</param>
         /// <param name="action">The action to invoke after waiting.</param>
         /// <param name="tag">Optional tag for the coroutine.</param>
-        /// <returns>The Coroutine object.</returns>
+        /// <returns>The started coroutine.</returns>
         /// <seealso cref="DoWhile"/>
         public static UnityEngine.Coroutine WaitUntil(System.Func<bool> condition, System.Action action, string tag = "")
         {
