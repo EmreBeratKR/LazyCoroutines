@@ -23,3 +23,15 @@ An Open-source Extension Library for Unity Coroutines
 - Import it from [Asset Store][assetstore]
 - Import [LazyCoroutines.unitypackage][releases] from **releases**
 - Clone or [Download][download] this repository and move to your Unity project's **Assets** folder
+
+## Settings
+
+### How to Access to Settings Panel
+
+<img src ="https://github.com/EmreBeratKR/ImageContainer/blob/main/LazyCoroutines/debugger_instruction.png" />
+
+- From Unity Menu Item's ```Tools```>```EmreBeratKR```>```Lazy Coroutines```>```Debugger```
+
+### Debugger Panel
+
+<img src="https://github.com/EmreBeratKR/ImageContainer/blob/main/LazyCoroutines/debugger.png" />
