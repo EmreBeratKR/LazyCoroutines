@@ -26,7 +26,7 @@ An Open-source Extension Library for Unity Coroutines
 
 ## Debugger
 
-### How to Access to Settings Panel
+### How to Access to Debugger Panel
 
 <img src ="https://github.com/EmreBeratKR/ImageContainer/blob/main/LazyCoroutines/debugger_instruction.png" />
 
