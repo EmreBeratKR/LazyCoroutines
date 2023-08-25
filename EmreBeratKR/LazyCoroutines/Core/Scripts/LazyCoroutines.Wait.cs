@@ -2,6 +2,16 @@ namespace EmreBeratKR.LazyCoroutines
 {
     public static partial class LazyCoroutines
     {
+        /// <summary>
+        /// Waits for the next frame and then invokes the provided action.
+        /// </summary>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForFrames"/>
+        /// <seealso cref="WaitForFixedUpdate"/>
+        /// <seealso cref="WaitForFixedUpdates"/>
+        /// <seealso cref="WaitForEndOfFrame"/>
         public static UnityEngine.Coroutine WaitForFrame(System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -15,21 +25,19 @@ namespace EmreBeratKR.LazyCoroutines
                 Kill(id);
             }
         }
-        
-        public static UnityEngine.Coroutine WaitForEndOfFrame(System.Action action, string tag = "")
-        {
-            var id = ms_NextID;
-            return StartCoroutine(Routine(), tag, nameof(WaitForEndOfFrame));
-            
-            
-            System.Collections.IEnumerator Routine()
-            {
-                yield return WaitForEndOfFrameObj;
-                Invoke(action, GetCoroutineByID(id));
-                Kill(id);
-            }
-        }
 
+        
+        /// <summary>
+        /// Waits for a specified number of frames and then invokes the provided action.
+        /// </summary>
+        /// <param name="count">The number of frames to wait for.</param>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForFrame"/>
+        /// <seealso cref="WaitForFixedUpdate"/>
+        /// <seealso cref="WaitForFixedUpdates"/>
+        /// <seealso cref="WaitForEndOfFrame"/>
         public static UnityEngine.Coroutine WaitForFrames(int count, System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -51,6 +59,17 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
+        
+        /// <summary>
+        /// Waits for a FixedUpdate and then invokes the provided action.
+        /// </summary>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForFrame"/>
+        /// <seealso cref="WaitForFrames"/>
+        /// <seealso cref="WaitForFixedUpdates"/>
+        /// <seealso cref="WaitForEndOfFrame"/>
         public static UnityEngine.Coroutine WaitForFixedUpdate(System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -65,6 +84,17 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
+        /// <summary>
+        /// Waits for a specified number of fixed updates and then invokes the provided action.
+        /// </summary>
+        /// <param name="count">The number of fixed updates to wait for.</param>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForFrame"/>
+        /// <seealso cref="WaitForFrames"/>
+        /// <seealso cref="WaitForFixedUpdate"/>
+        /// <seealso cref="WaitForEndOfFrame"/>
         public static UnityEngine.Coroutine WaitForFixedUpdates(int count, System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -86,6 +116,39 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
+        /// <summary>
+        /// Waits until the end of the current frame and then invokes the provided action.
+        /// </summary>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForFrame"/>
+        /// <seealso cref="WaitForFrames"/>
+        /// <seealso cref="WaitForFixedUpdate"/>
+        /// <seealso cref="WaitForFixedUpdates"/>
+        public static UnityEngine.Coroutine WaitForEndOfFrame(System.Action action, string tag = "")
+        {
+            var id = ms_NextID;
+            return StartCoroutine(Routine(), tag, nameof(WaitForEndOfFrame));
+            
+            
+            System.Collections.IEnumerator Routine()
+            {
+                yield return WaitForEndOfFrameObj;
+                Invoke(action, GetCoroutineByID(id));
+                Kill(id);
+            }
+        }
+        
+        
+        /// <summary>
+        /// Waits for a specified amount of time in seconds and then invokes the provided action.
+        /// </summary>
+        /// <param name="delay">The time in seconds to wait for.</param>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForSecondsRealtime"/>
         public static UnityEngine.Coroutine WaitForSeconds(float delay, System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -111,6 +174,14 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
+        /// <summary>
+        /// Waits for a specified amount of real time in seconds and then invokes the provided action.
+        /// </summary>
+        /// <param name="delay">The real time in seconds to wait for.</param>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitForSeconds"/>
         public static UnityEngine.Coroutine WaitForSecondsRealtime(float delay, System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -136,6 +207,14 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
+        /// <summary>
+        /// Waits while a given condition is true and then invokes the provided action.
+        /// </summary>
+        /// <param name="condition">The condition to wait for.</param>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="WaitUntil"/>
         public static UnityEngine.Coroutine WaitWhile(System.Func<bool> condition, System.Action action, string tag = "")
         {
             var id = ms_NextID;
@@ -153,6 +232,14 @@ namespace EmreBeratKR.LazyCoroutines
             }
         }
         
+        /// <summary>
+        /// Waits until a given condition is true and then invokes the provided action.
+        /// </summary>
+        /// <param name="condition">The condition to wait for.</param>
+        /// <param name="action">The action to invoke after waiting.</param>
+        /// <param name="tag">Optional tag for the coroutine.</param>
+        /// <returns>The Coroutine object.</returns>
+        /// <seealso cref="DoWhile"/>
         public static UnityEngine.Coroutine WaitUntil(System.Func<bool> condition, System.Action action, string tag = "")
         {
             var id = ms_NextID;

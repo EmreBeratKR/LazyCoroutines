@@ -21,6 +21,13 @@ namespace EmreBeratKR.LazyCoroutines
         private static uint ms_NextID;
         
         
+        /// <summary>
+        /// Starts a new coroutine and associates it with a unique ID.
+        /// </summary>
+        /// <param name="routine">The IEnumerator representing the coroutine.</param>
+        /// <param name="tag">An optional tag for categorizing the coroutine.</param>
+        /// <param name="name">An optional name for identifying the coroutine.</param>
+        /// <returns>The reference to the started Unity coroutine.</returns>
         public static UnityEngine.Coroutine StartCoroutine(System.Collections.IEnumerator routine, string tag = "", string name = "UNNAMED ROUTINE")
         {
             var id = GetAndIncrementID();
@@ -42,6 +49,10 @@ namespace EmreBeratKR.LazyCoroutines
             return coroutine;
         }
 
+        /// <summary>
+        /// Stops the specified coroutine.
+        /// </summary>
+        /// <param name="coroutine">The reference to the coroutine to stop.</param>
         public static void StopCoroutine(UnityEngine.Coroutine coroutine)
         {
             if (coroutine == null) return;
@@ -49,6 +60,9 @@ namespace EmreBeratKR.LazyCoroutines
             Kill(coroutine);
         }
 
+        /// <summary>
+        /// Stops all running coroutines.
+        /// </summary>
         public static void StopAllCoroutines()
         {
             GetRunner().StopAllCoroutines();
