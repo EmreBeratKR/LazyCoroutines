@@ -7,34 +7,19 @@ namespace EmreBeratKR.LazyCoroutines.Test
     {
         private void Start()
         {
-            var go = new GameObject();
-
-            LazyCoroutines.DoEverySeconds(1f, () =>
-            {
-                Debug.Log(go.name);
-            });
-
-            /*GameObject a = null;
-
             LazyCoroutines.StartCoroutine(Routine());
 
             IEnumerator Routine()
             {
                 yield return null;
-                Debug.Log(a.name);
-            }*/
-
-            /*GameObject a = null;
-
-            LazyCoroutines.WaitForFrame(() =>
-            {
-                Debug.Log(a.name);
-            });*/
+                Debug.Log("some routine");
+            }
 
             var i = 0;
 
             LazyCoroutines.DoUntil(() => i > 5000, () => { i++;});
             LazyCoroutines.DoWhile(() => i < 3000, () => {});
+            
             LazyCoroutines.WaitUntil(() => i > 4000, () => { });
             LazyCoroutines.WaitWhile(() => i < 3500, () => { });
             LazyCoroutines.WaitForFrame(() => { });
@@ -46,7 +31,11 @@ namespace EmreBeratKR.LazyCoroutines.Test
             LazyCoroutines.WaitForSecondsRealtime(15, () => { }, "i am tagged!");
 
             LazyCoroutines.DoEveryFrame(() => Debug.Log("update"));
-            LazyCoroutines.DoEveryFixedUpdate(() => Debug.Log("fixed update"), "yes sir");
+            LazyCoroutines.DoEveryFixedUpdate(() => Debug.Log("fixed update"), "i am tagged also");
+            LazyCoroutines.DoEverySeconds(1f, () =>
+            {
+                Debug.Log("1 second ticked!");
+            });
         }
     }
 }

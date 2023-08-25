@@ -144,6 +144,8 @@ namespace EmreBeratKR.LazyCoroutines
             
             System.Collections.IEnumerator Routine()
             {
+                yield return null;
+                
                 while (condition.Invoke()) yield return null;
                 
                 Invoke(action, GetCoroutineByID(id));
@@ -159,6 +161,8 @@ namespace EmreBeratKR.LazyCoroutines
             
             System.Collections.IEnumerator Routine()
             {
+                yield return null;
+                
                 while (!condition.Invoke()) yield return null;
                 
                 Invoke(action, GetCoroutineByID(id));
