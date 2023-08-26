@@ -63,6 +63,7 @@ namespace EmreBeratKR.LazyCoroutines
         
         /// <summary>
         /// Executes the specified action every specified number of seconds.
+        /// Useful whenever the duration is changing.
         /// </summary>
         /// <param name="secondsGetter">A function that returns the time interval in seconds.</param>
         /// <param name="action">The action to execute.</param>
