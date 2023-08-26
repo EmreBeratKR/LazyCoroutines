@@ -112,6 +112,7 @@ public class Test : MonoBehaviour
 ### DoEveryFrame
 
 - Executes the specified action every frame.
+- Returns the started coroutine.
 
 ```cs
 using EmreBeratKR.LazyCoroutines;
@@ -133,6 +134,7 @@ public class Test : MonoBehaviour
 ### DoEveryFixedUpdate
 
 - Executes the specified action every FixedUpdate.
+- Returns the started coroutine.
 
 ```cs
 using EmreBeratKR.LazyCoroutines;
@@ -154,6 +156,7 @@ public class Test : MonoBehaviour
 ### DoEverySeconds
 
 - Executes the specified action every specified number of seconds.
+- Returns the started coroutine.
 
 ```cs
 using EmreBeratKR.LazyCoroutines;
@@ -176,6 +179,7 @@ public class Test : MonoBehaviour
 
 - Executes the specified action every specified number of seconds.
 - Useful whenever the duration is changing.
+- Returns the started coroutine.
 
 ```cs
 using EmreBeratKR.LazyCoroutines;
@@ -201,6 +205,7 @@ public class Test : MonoBehaviour
 ### DoWhile
 
 - Executes the specified action while the specified condition is true.
+- Returns the started coroutine.
 
 ```cs
 using EmreBeratKR.LazyCoroutines;
@@ -222,6 +227,7 @@ public class Test : MonoBehaviour
 ### DoUntil
 
 - Executes the specified action until the specified condition is true.
+- Returns the started coroutine.
 
 ```cs
 using EmreBeratKR.LazyCoroutines;
@@ -235,6 +241,208 @@ public class Test : MonoBehaviour
         LazyCoroutines.DoUntil(() => Input.GetKeyDown(KeyCode.Space), () =>
         {
             Debug.Log("Log until space key is pressed!");
+        });
+    }
+}
+```
+
+### WaitForFrame
+
+- Waits for the next frame and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForFrame(() =>
+        {
+            Debug.Log("Waited for a frame!");
+        });
+    }
+}
+```
+
+### WaitForFrames
+
+- Waits for a specified number of frames and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForFrames(10, () =>
+        {
+            Debug.Log("Waited for 10 frames!");
+        });
+    }
+}
+```
+
+### WaitForFixedUpdate
+
+- Waits for a FixedUpdate and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForFixedUpdate(() =>
+        {
+            Debug.Log("Waited for a FixedUpdate!");
+        });
+    }
+}
+```
+
+### WaitForFixedUpdates
+
+- Waits for a specified number of FixedUpdates and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForFixedUpdates(5, () =>
+        {
+            Debug.Log("Waited for 5 FixedUpdates!");
+        });
+    }
+}
+```
+
+### WaitForEndOfFrame
+
+- Waits until the end of the current frame and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForEndOfFrame(() =>
+        {
+            Debug.Log("Waited for 5 end of the frame!");
+        });
+    }
+}
+```
+
+### WaitForSeconds
+
+- Waits for a specified amount of time in seconds and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForSeconds(3.67f, () =>
+        {
+            Debug.Log("Waited for 3.67 seconds");
+        });
+    }
+}
+```
+
+### WaitForSecondsRealtime
+
+- Waits for a specified amount of real time in seconds and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.WaitForSecondsRealtime(10, () =>
+        {
+            Debug.Log("Waited for 10 seconds");
+        });
+    }
+}
+```
+
+### WaitWhile
+
+- Waits while a given condition is true and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private bool m_IsLevelComplete;
+    
+    private void Start()
+    {
+        LazyCoroutines.WaitWhile(() => !m_IsLevelComplete, () =>
+        {
+            Debug.Log("Wait while level is not completed yet!");
+        });
+    }
+}
+```
+
+### WaitUntil
+
+- Waits until a given condition is true and then invokes the provided action.
+- Returns the started coroutine.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private int m_CoinCount;
+    
+    private void Start()
+    {
+        LazyCoroutines.WaitUntil(() => m_CoinCount > 5, () =>
+        {
+            Debug.Log("Wait until we have more than 5 coins!");
         });
     }
 }
