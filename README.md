@@ -8,6 +8,13 @@
 
 [<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" />][coffee]
 
+## Navigate
+
+- <a href="#about">About</a>
+- <a href="#how-to-install">How to Install</a>
+- <a href="#debugger">Debugger</a>
+- <a href="#api">API</a>
+
 [assetstore]: https://assetstore.unity.com/
 [discord]: https://discord.gg/mKG9vkyEDX
 [coffee]: https://www.buymeacoffee.com/emreberat
@@ -37,6 +44,9 @@ An Open-source Extension Library for Unity Coroutines
 <img src="https://github.com/EmreBeratKR/ImageContainer/blob/main/LazyCoroutines/debugger.png" />
 
 ## API
+
+- <a href="#do-prefix">Do Prefix</a>
+- <a href="#wait-prefix">Wait Prefix</a>
 
 ### StartCoroutine
 
