@@ -27,7 +27,7 @@ namespace EmreBeratKR.LazyCoroutines
         /// <param name="routine">The IEnumerator representing the coroutine.</param>
         /// <param name="tag">An optional tag for categorizing the coroutine.</param>
         /// <param name="name">An optional name for identifying the coroutine.</param>
-        /// <returns>The reference to the started Unity coroutine.</returns>
+        /// <returns>The started coroutine.</returns>
         public static UnityEngine.Coroutine StartCoroutine(System.Collections.IEnumerator routine, string tag = "", string name = "UNNAMED ROUTINE")
         {
             var id = GetAndIncrementID();
