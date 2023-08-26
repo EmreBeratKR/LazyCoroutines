@@ -108,3 +108,134 @@ public class Test : MonoBehaviour
     }
 }
 ```
+
+### DoEveryFrame
+
+- Executes the specified action every frame.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.DoEveryFrame(() =>
+        {
+            Debug.Log("Log every frame!");
+        });
+    }
+}
+```
+
+### DoEveryFixedUpdate
+
+- Executes the specified action every FixedUpdate.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.DoEveryFixedUpdate(() =>
+        {
+            Debug.Log("Log every FixedUpdate!");
+        });
+    }
+}
+```
+
+### DoEverySeconds
+
+- Executes the specified action every specified number of seconds.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.DoEverySeconds(0.5f, () =>
+        {
+            Debug.Log("Log every 0.5 seconds!");
+        });
+    }
+}
+```
+
+### DoEverySeconds (with Func)
+
+- Executes the specified action every specified number of seconds.
+- Useful whenever the duration is changing.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        var duration = 0.75f;
+        
+        LazyCoroutines.DoEverySeconds(() => duration, () =>
+        {
+            // change duration randomly
+            duration = Random.Range(0.1f, 1f);
+            Debug.Log("Log every [duration] seconds!");
+        });
+    }
+}
+```
+
+### DoWhile
+
+- Executes the specified action while the specified condition is true.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.DoWhile(() => Input.GetKey(KeyCode.Space), () =>
+        {
+            Debug.Log("Log while space key is pressed!");
+        });
+    }
+}
+```
+
+### DoUntil
+
+- Executes the specified action until the specified condition is true.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.DoUntil(() => Input.GetKeyDown(KeyCode.Space), () =>
+        {
+            Debug.Log("Log until space key is pressed!");
+        });
+    }
+}
+```
