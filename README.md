@@ -109,6 +109,8 @@ public class Test : MonoBehaviour
 }
 ```
 
+## Do Prefix
+
 ### DoEveryFrame
 
 - Executes the specified action every frame.
@@ -245,6 +247,8 @@ public class Test : MonoBehaviour
     }
 }
 ```
+
+## Wait Prefix
 
 ### WaitForFrame
 
