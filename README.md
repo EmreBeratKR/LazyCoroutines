@@ -45,8 +45,26 @@ An Open-source Extension Library for Unity Coroutines
 
 ## API
 
-- <a href="#do-prefix">Do Prefix</a>
-- <a href="#wait-prefix">Wait Prefix</a>
+- <a href="#startcoroutine">StartCoroutine</a>
+- <a href="#stopcoroutine">StopCoroutine</a>
+- <a href="#stopallcoroutines">StopAllCoroutines</a>
+### Do Prefix
+- <a href="#doeveryframe">DoEveryFrame</a>
+- <a href="#doeveryfixedupdate">DoEveryFixedUpdate</a>
+- <a href="#doeveryseconds">DoEverySeconds</a>
+- <a href="#doeveryseconds-(with-func)">DoEverySeconds (with Func)</a>
+- <a href="#dowhile">DoWhile</a>
+- <a href="#dountil">DoUntil</a>
+### Wait Prefix
+- <a href="#waitforframe">WaitForFrame</a>
+- <a href="#waitforframes">WaitForFrames</a>
+- <a href="#waitforfixedupdate">WaitForFixedUpdate</a>
+- <a href="#waitforfixedupdates">WaitForFixedUpdates</a>
+- <a href="#waitforendofframe">WaitForEndOfFrame</a>
+- <a href="#waitforseconds">WaitForSeconds</a>
+- <a href="#waitforsecondsrealtime">WaitForSecondsRealtime</a>
+- <a href="#waitwhile">WaitWhile</a>
+- <a href="#waituntil">WaitUntil</a>
 
 ### StartCoroutine
 
