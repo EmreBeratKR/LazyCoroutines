@@ -30,6 +30,10 @@ An Open-source Extension Library for Unity Coroutines
 - Import it from [Asset Store][assetstore]
 - Import [LazyCoroutines.unitypackage][releases] from **releases**
 - Clone or [Download][download] this repository and move to your Unity project's **Assets** folder
+- Add from git URL for UPM (Unity Package Manager)
+```
+https://github.com/EmreBeratKR/LazyCoroutines.git
+```
 
 ## Debugger
 
