@@ -1,0 +1,14 @@
+{
+  "name": "com.emreberatkr.lazycoroutines",
+  "version": "1.0.0",
+  "displayName": "Lazy Coroutines",
+  "description": "An Open-source Extension Library for Unity Coroutines.",
+  "documentationUrl": "https://github.com/EmreBeratKR/LazyCoroutines/blob/main/README.md",
+  "changelogUrl": "https://github.com/EmreBeratKR/LazyCoroutines/releases",
+  "licensesUrl": "https://github.com/EmreBeratKR/LazyCoroutines/blob/main/LICENSE",
+  "author": {
+    "name": "Emre Berat Kıran",
+    "email": "emreberatkrn@gmail.com",
+    "url": "https://www.linkedin.com/in/emreberat/"
+  }
+}
