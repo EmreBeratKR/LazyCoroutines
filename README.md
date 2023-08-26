@@ -35,3 +35,76 @@ An Open-source Extension Library for Unity Coroutines
 ### Debugger Panel
 
 <img src="https://github.com/EmreBeratKR/ImageContainer/blob/main/LazyCoroutines/debugger.png" />
+
+## API
+
+### StartCoroutine
+
+- Starts a new coroutine and associates it with a unique ID.
+- Returns the started coroutine.
+
+```cs
+using System.Collections;
+using UnityEngine;
+using EmreBeratKR.LazyCoroutines;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    { 
+        LazyCoroutines.StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            yield return null;
+            Debug.Log("some routine");
+        }
+    }
+}
+```
+
+### StopCoroutine
+
+- Stops the specified coroutine.
+
+```cs
+using System.Collections;
+using UnityEngine;
+using EmreBeratKR.LazyCoroutines;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    { 
+        var coroutine = LazyCoroutines.StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            yield return null;
+            Debug.Log("some routine");
+        }
+        
+        LazyCoroutines.StopCoroutine(coroutine);
+    }
+}
+```
+
+### StopAllCoroutines
+
+- Stops all running coroutines.
+
+```cs
+using EmreBeratKR.LazyCoroutines;
+using UnityEngine;
+
+
+public class Test : MonoBehaviour
+{
+    private void Start()
+    {
+        LazyCoroutines.StopAllCoroutines();
+    }
+}
+```
