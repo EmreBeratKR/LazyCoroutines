@@ -52,7 +52,7 @@ An Open-source Extension Library for Unity Coroutines
 - <a href="#doeveryframe">DoEveryFrame</a>
 - <a href="#doeveryfixedupdate">DoEveryFixedUpdate</a>
 - <a href="#doeveryseconds">DoEverySeconds</a>
-- <a href="#doeveryseconds-(with-func)">DoEverySeconds (with Func)</a>
+- <a href="#doeveryseconds-with-func">DoEverySeconds (with Func)</a>
 - <a href="#dowhile">DoWhile</a>
 - <a href="#dountil">DoUntil</a>
 ### Wait Prefix
