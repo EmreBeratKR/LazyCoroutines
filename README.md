@@ -15,7 +15,7 @@
 - <a href="#debugger">Debugger</a>
 - <a href="#api">API</a>
 
-[assetstore]: https://assetstore.unity.com/
+[assetstore]: https://assetstore.unity.com/packages/tools/utilities/lazycoroutines-264245
 [discord]: https://discord.gg/mKG9vkyEDX
 [coffee]: https://www.buymeacoffee.com/emreberat
 [releases]: https://github.com/EmreBeratKR/LazyCoroutines/releases
